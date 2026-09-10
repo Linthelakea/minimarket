@@ -22,12 +22,11 @@ class CheckShopStatus extends Command
      */
     public function handle()
     {
-        // Mengambil argumen jam, jika tidak diisi maka default ke jam 10 pagi
+
         $jam = $this->argument('jam') ?? 10;
         $nama = $this->ask("Masukkan nama kasir: ");
         $this->info("=== SISTEM MONITORING TOKO KELONTONG ===");
 
-        // Asumsi toko buka dari jam 08:00 sampai 21:00
         if ($jam >= 8 && $jam <= 21) {
             $this->info("Halo $nama, selamat datang di Toko Kelontong POS!");
             $this->info("Status Toko pada jam $jam:00 WIB adalah: BUKA");

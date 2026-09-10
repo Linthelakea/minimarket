@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class alim extends Model
+class login extends Model
 {
     //
 }
