@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\LaporanController;
+
+Route::get('/laporan', LaporanController::class);
 
 Route::get('/', [DashboardController::class, 'index']);
 
@@ -20,6 +24,15 @@ Route::get('/dashboard_admin', function () {
 Route::get('/dashboard_kasir', function () {
     return view('dashboard_kasir');
 });
+
+Route::get('/', function () {
+ return view('welcome');
+});
+
+// Routing menuju Controller
+Route::get('/produk', [ProdukController::class, 'index']);
+
+Route::get('/produk/{id}', [ProdukController::class, 'show']);
 
 // Route::get('/', function () {
 //     // Mengirim data ke view menggunakan array asosiatif
