@@ -6,6 +6,13 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ValidasiController;
+
+Route::get('/validasi', function () {
+    return view('validasi');
+});
+
+Route::post('/validasi', [ValidasiController::class, 'submitForm']);
 
 Route::get('/laporan', LaporanController::class);
 
