@@ -78,9 +78,30 @@ Route::get('/produk/{id}', [ProdukController::class, 'show']);
 //         return 'Halaman Input Transaksi Penjualan (Kasir)';
 //     })->name('kasir.transaksi');
 // });
-
+//Eloquent ORM 2
 //Eloqunt ORM
 Route::prefix('orm')->group(function () {
+
+    //softdeletes
+    Route::get('/soft-delete', [UserController::class, 'softDelete']);
+
+    //Muttators
+    Route::get('/mutator-accessor', [UserController::class, 'mutatorAccessor']);
+
+    //conditional clause
+    Route::get('/where', [UserController::class, 'where']);
+
+    Route::get('/or-where', [UserController::class, 'orWhere']);
+
+    Route::get('/where-between', [UserController::class, 'whereBetween']);
+
+    Route::get('/where-in', [UserController::class, 'whereIn']);
+
+    Route::get('/where-null', [UserController::class, 'whereNull']);
+
+    Route::get('/where-not-null', [UserController::class, 'whereNotNull']);
+
+    Route::get('/when', [UserController::class, 'when']);
 
     // CREATE
     Route::get('/create', [UserController::class, 'create']);

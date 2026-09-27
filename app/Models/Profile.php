@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model
+class Profile extends Model
 {
     protected $fillable = [
         'user_id',
-        'title',
-        'content',
+        'bio',
     ];
 
     public function user(): BelongsTo

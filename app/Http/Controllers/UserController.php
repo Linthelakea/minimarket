@@ -7,6 +7,105 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    //Eloquent ORM 2
+    //query scopes
+    public function scopes()
+    {
+        $users = User::active()->get();
+
+        return response()->json($users);
+    }
+
+    //soft deletes
+    public function softDelete()
+{
+        $user = User::find(1);
+
+        if (!$user) {
+            return 'User tidak ditemukan';
+        }
+
+        $user->delete();
+
+        return 'User berhasil dihapus';
+    }
+
+    //Muttators & accessors
+    public function mutatorAccessor()
+    {
+        $user = User::create([
+            'name' => 'john doe',
+            'email' => 'john3@example.com',
+            'password' => 'password123',
+        ]);
+
+        return response()->json([
+            'name' => $user->name,
+        ]);
+    }
+
+        // WHERE
+    public function where()
+    {
+        $users = User::where('status', 'active')->get();
+
+        return response()->json($users);
+    }
+
+    // OR WHERE
+    public function orWhere()
+    {
+        $users = User::where('status', 'active')
+            ->orWhere('role', 'admin')
+            ->get();
+
+        return response()->json($users);
+    }
+
+    // WHERE BETWEEN
+    public function whereBetween()
+    {
+        $users = User::whereBetween('age', [18, 30])->get();
+
+        return response()->json($users);
+    }
+
+    // WHERE IN
+    public function whereIn()
+    {
+        $users = User::whereIn('role', ['admin', 'editor'])->get();
+
+        return response()->json($users);
+    }
+
+    // WHERE NULL
+    public function whereNull()
+    {
+        $users = User::whereNull('deleted_at')->get();
+
+        return response()->json($users);
+    }
+
+    // WHERE NOT NULL
+    public function whereNotNull()
+    {
+        $users = User::whereNotNull('email_verified_at')->get();
+
+        return response()->json($users);
+    }
+
+    // WHEN
+    public function when()
+    {
+        $role = 'admin';
+
+        $users = User::when($role, function ($query, $role) {
+            return $query->where('role', $role);
+        })->get();
+
+        return response()->json($users);
+    }
+
     // Eloquent ORM
     // CREATE
     public function create()
