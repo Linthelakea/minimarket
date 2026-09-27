@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\ValidasiController;
 Route::get('/validasi', function () {
     return view('validasi');
 });
+
+Route::get('/user/store', [UserController::class, 'store']);
 
 Route::post('/validasi', [ValidasiController::class, 'submitForm']);
 
@@ -75,6 +78,64 @@ Route::get('/produk/{id}', [ProdukController::class, 'show']);
 //         return 'Halaman Input Transaksi Penjualan (Kasir)';
 //     })->name('kasir.transaksi');
 // });
+
+//Eloqunt ORM
+Route::prefix('orm')->group(function () {
+
+    // CREATE
+    Route::get('/create', [UserController::class, 'create']);
+
+    // RETRIEVE
+    Route::get('/users', [UserController::class, 'retrieve']);
+
+    // UPDATE
+    Route::get('/update', [UserController::class, 'update']);
+
+    // DELETE
+    Route::get('/delete', [UserController::class, 'delete']);
+
+});
+
+//QUERY
+Route::prefix('query')->group(function () {
+
+    // INSERT
+    Route::get('/insert', [UserController::class, 'insert']);
+    Route::get('/insert-id', [UserController::class, 'insertGetId']);
+    // READ
+    Route::get('/users', [UserController::class, 'getUsers']);
+    Route::get('/find', [UserController::class, 'findUser']);
+    Route::get('/select', [UserController::class, 'selectUser']);
+    Route::get('/multiple-where', [UserController::class, 'multipleWhere']);
+    Route::get('/operator', [UserController::class, 'whereOperator']);
+    // UPDATE
+    Route::get('/update', [UserController::class, 'updateUser']);
+    Route::get('/increment', [UserController::class, 'incrementPoints']);
+    Route::get('/decrement', [UserController::class, 'decrementPoints']);
+    // DELETE
+    Route::get('/delete', [UserController::class, 'deleteUser']);
+    Route::get('/truncate', [UserController::class, 'truncateUsers']);
+    // PLUCK
+    Route::get('/pluck', [UserController::class, 'pluckUsers']);
+    // AGGREGATE
+    Route::get('/count', [UserController::class, 'countUsers']);
+    Route::get('/sum', [UserController::class, 'sumPoints']);
+    Route::get('/avg', [UserController::class, 'averageAge']);
+    Route::get('/max', [UserController::class, 'maxSalary']);
+    Route::get('/min', [UserController::class, 'minSalary']);
+    // JOIN
+    Route::get('/join', [UserController::class, 'innerJoin']);
+    Route::get('/left-join', [UserController::class, 'leftJoin']);
+    // ORDER / LIMIT / OFFSET
+    Route::get('/order', [UserController::class, 'orderUsers']);
+    Route::get('/limit', [UserController::class, 'limitUsers']);
+    Route::get('/offset', [UserController::class, 'offsetUsers']);
+    // SUBQUERY
+    Route::get('/subquery', [UserController::class, 'subquery']);
+    // RAW SQL
+    Route::get('/raw-select', [UserController::class, 'rawSelect']);
+    Route::get('/raw-where', [UserController::class, 'rawWhere']);
+});
 
 Route::get('/daftar_produk', function () {
 
