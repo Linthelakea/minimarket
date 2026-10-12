@@ -10,8 +10,20 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder 
 { 
-    public function run() 
-    { 
-        User::factory()->count(10)->create();
-    } 
+    public function run(): void
+    {
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => '12345',
+            'role' => 'admin',
+        ]);
+
+        User::create([
+            'name' => 'kasir',
+            'email' => 'kasir@gmail.com',
+            'password' => '54321',
+            'role' => 'kasir',
+        ]);
+    }
  } 

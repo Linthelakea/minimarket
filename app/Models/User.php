@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
 #[Fillable([
     'name',
@@ -27,10 +28,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'password',
     'remember_token'
     ])]
+
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, softdeletes;
+    use HasApiTokens, HasFactory, Notifiable, softdeletes;
 
     /**
      * Get the attributes that should be cast.

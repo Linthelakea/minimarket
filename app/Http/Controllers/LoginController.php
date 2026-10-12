@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -13,18 +15,37 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->username;
-        $password = $request->password;
+        $name = $request->input('username', $request->input('name'));
+        $password = $request->input('password');
 
-        if ($username === 'admin' && $password === '12345') {
-            return redirect('dashboard_admin');
+        if (!$name || !$password) {
+            return back()->with('error', 'Username dan password wajib diisi.');
         }
 
-        if ($username === 'kasir' && $password === '54321') {
-            return redirect('dashboard_kasir');
+        if (Auth::attempt(['name' => $name, 'password' => $password])) {
+
+            $request->session()->regenerate();
+
+            if (Auth::user()->role === 'admin') {
+                return redirect('/admin/dashboard');
+            }
+
+            if (Auth::user()->role === 'kasir') {
+                return redirect('/kasir/dashboard');
+            }
+
+            return redirect('/');
         }
 
-        return back()->with('error', 'Username atau password salah!');
+        return back()->with('error', 'Username atau password salah.');
     }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar.');
+    }
 }

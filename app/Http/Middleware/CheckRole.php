@@ -5,16 +5,23 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
     /**
      * Handle an incoming request.
      *
-     * @param  Closure(Request): (Response)  $next
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  string  ...$roles
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        return $next($request);
+        // Cek apakah user sudah login dan role user ada di dalam daftar $roles
+        if (Auth::check() && in_array(Auth::user()->role, $roles)) {
+            return $next($request);
+        }
+
+        return redirect('/login')->with('error', 'Kamu tidak memiliki akses.');
     }
 }

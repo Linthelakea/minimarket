@@ -15,4 +15,9 @@ class PostController extends Controller
         // Kirim data ke tampilan (view)
         return view('posts.index', compact('posts'));
     }
+
+    public function posts()
+    {
+        return $this->index();
+    }
 }

@@ -7,6 +7,19 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function store()
+    {
+        $user = User::create([
+            'name' => 'John Doe',
+            'email' => 'user' . time() . '@example.com',
+            'password' => 'password123',
+            'role' => 'user',
+            'status' => 'active',
+        ]);
+
+        return response()->json($user);
+    }
+
     //Eloquent ORM 2
     //query scopes
     public function scopes()

@@ -22,4 +22,29 @@ class ProdukController extends Controller
  {
  return view('produk.index', ['id' => $id]);
  }
+
+ public function create()
+ {
+     return view('produk.index');
+ }
+
+ public function store(Request $request)
+ {
+     return redirect('/produk');
+ }
+
+ public function edit($id)
+ {
+     return view('produk.index', ['id' => $id]);
+ }
+
+ public function update(Request $request, $id)
+ {
+     return redirect('/produk');
+ }
+
+ public function destroy($id)
+ {
+     return redirect('/produk');
+ }
 }
